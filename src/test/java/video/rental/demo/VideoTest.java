@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import video.rental.demo.application.*;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ class VideoTest {
         Customer shawn = new Customer(2, "Shawn", LocalDate.now().minusYears(13));
 
         // When
-        boolean result = video.rentFor(shawn);
+        boolean result = rentalOperator.rentFor(shawn, video);
 
         // Then
         assertFalse(result);
@@ -37,7 +37,7 @@ class VideoTest {
         Customer james = new Customer(0, "James", LocalDate.now().minusYears(20));
 
         // When
-        boolean result = video.rentFor(james);
+        boolean result = rentalOperator.rentFor(james, video);
 
         // Then
         assertAll("Valid rent", 
