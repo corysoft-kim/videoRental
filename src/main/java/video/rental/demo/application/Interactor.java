@@ -58,8 +58,6 @@ public class Interactor {
 	}
 
 	public Customer getCustomerReport(int code) {
-		
-	
 	    Customer foundCustomer = repository.findCustomerById(code);
 	    if (foundCustomer == null) {
 	        throw new IllegalArgumentException("No such customer exists");
