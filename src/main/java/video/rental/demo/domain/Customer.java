@@ -59,39 +59,18 @@ public class Customer {
 	public String getReport() {
 		String result = "Customer Report for " + getName() + "\n";
 
-		List<Rental> rentals = getRentals();
+		List<Rental> rentalList = getRentals();
 		double totalCharge = 0;
 		int totalPoint = 0;
 
-		for (Rental each : rentals) {
-			double eachCharge = 0;
-			int eachPoint = 0;
-			int daysRented = each.getDaysRented();
-
-			switch (each.getVideo().getPriceCode()) {
-			case Video.REGULAR:
-				eachCharge += 2;
-				if (daysRented > 2)
-					eachCharge += (daysRented - 2) * 1.5;
-				break;
-			case Video.NEW_RELEASE:
-				eachCharge = daysRented * 3;
-				break;
-			case Video.CHILDREN:
-				eachCharge += 1.5;
-				if (daysRented > 3)
-					eachCharge += (daysRented - 3) * 1.5;
-				break;
-			}
+		for (Rental rentalItem : rentalList) {
+			int daysRented = rentalItem.getDaysRented();
+			int priceCode = rentalItem.getVideo().getPriceCode();
 			
-			eachPoint++;
-			if ((each.getVideo().getPriceCode() == Video.NEW_RELEASE))
-				eachPoint++;
+			double eachCharge = getCharge(daysRented, priceCode);
+			int eachPoint = getPoint(rentalItem, daysRented);
 
-			if (daysRented > each.getDaysRentedLimit())
-				eachPoint -= Math.min(eachPoint, each.getVideo().getLateReturnPointPenalty());
-
-			result += "\tTitle: " + each.getVideo().getTitle() + "\tDays rented: " + daysRented + "\tCharge: " + eachCharge
+			result += "\tTitle: " + rentalItem.getVideo().getTitle() + "\tDays rented: " + daysRented + "\tCharge: " + eachCharge
 					+ "\tPoint: " + eachPoint + "\n";
 
 			totalCharge += eachCharge;
@@ -107,6 +86,38 @@ public class Customer {
 		}
 
 		return result;
+	}
+
+	private double getCharge(int daysRented, int priceCode) {
+		double charge = 0;
+
+		switch (priceCode) {
+		case Video.REGULAR:
+			charge += 2;
+			if (daysRented > 2)
+				charge += (daysRented - 2) * 1.5;
+			break;
+		case Video.NEW_RELEASE:
+			charge = daysRented * 3;
+			break;
+		case Video.CHILDREN:
+			charge += 1.5;
+			if (daysRented > 3)
+				charge += (daysRented - 3) * 1.5;
+			break;
+		}
+		return charge;
+	}
+
+	private int getPoint(Rental each, int daysRented) {
+		int point = 0;
+		point++;
+		if ((each.getVideo().getPriceCode() == Video.NEW_RELEASE))
+			point++;
+
+		if (daysRented > each.getDaysRentedLimit())
+			point -= Math.min(point, each.getVideo().getLateReturnPointPenalty());
+		return point;
 	}
 
 }

@@ -76,7 +76,7 @@ public class Interactor {
 	    if (foundVideo.isRented())
 	        throw new IllegalStateException("The video " + videoTitle + " is already rented");
 	
-	    if (foundVideo.rentFor(foundCustomer)) {
+	    if (rentalOperator.rentFor(foundCustomer, foundVideo)) {
 	        repository.saveVideo(foundVideo);
 	        repository.saveCustomer(foundCustomer);
 	    } else {
