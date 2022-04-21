@@ -9,13 +9,15 @@ import video.rental.demo.domain.Rating;
 import video.rental.demo.domain.Rental;
 import video.rental.demo.domain.Repository;
 import video.rental.demo.domain.Video;
+import video.rental.demo.presentation.Interactor;
 
-public class Interactor {
+public class InteractorImpl implements Interactor {
 	private Repository repository;
 	
-	public Interactor(Repository repository) {
+	public InteractorImpl(Repository repository) {
 		this.repository = repository;
 	}
+	@Override
 	public String clearRental(int customerCode) {
 		StringBuilder builder = new StringBuilder();
 		Customer foundCustomer = repository.findCustomerById(customerCode);
@@ -37,6 +39,7 @@ public class Interactor {
 	    return builder.toString();
 	}
 
+	@Override
 	public void returnVideo(int customerCode, String videoTitle) {
 		Customer foundCustomer = repository.findCustomerById(customerCode);
 	    if (foundCustomer == null) {
@@ -57,6 +60,7 @@ public class Interactor {
 	    repository.saveCustomer(foundCustomer);
 	}
 
+	@Override
 	public Customer getCustomerReport(int code) {
 	    Customer foundCustomer = repository.findCustomerById(code);
 	    if (foundCustomer == null) {
@@ -65,6 +69,7 @@ public class Interactor {
 		return foundCustomer;
 	}
 
+	@Override
 	public void rentVideo(int code, String videoTitle) {
 		Customer foundCustomer = repository.findCustomerById(code);
 	    if (foundCustomer == null)
@@ -85,6 +90,7 @@ public class Interactor {
 	    }
 	}
 
+	@Override
 	public void registerCustomer(String name, int code, String dateOfBirth) {
 		// dirty hack for the moment
 		if (repository.findAllCustomers().stream().mapToInt(Customer::getCode).anyMatch(c -> c == code)) {
@@ -94,6 +100,7 @@ public class Interactor {
 		repository.saveCustomer(new Customer(code, name, LocalDate.parse(dateOfBirth)));
 	}
 
+	@Override
 	public void registerVideo(String title, int videoType, int priceCode, LocalDate registeredDate, Rating rating) {
 		// dirty hack for the moment
 		if (repository.findAllVideos().stream().map(Video::getTitle).anyMatch(t -> t.equals(title))) {
@@ -103,6 +110,7 @@ public class Interactor {
 		repository.saveVideo(new Video(title, videoType, priceCode, rating, registeredDate));
 	}
 
+	@Override
 	public String listVideos() {
 		StringBuilder builder = new StringBuilder();
 		for (Video video : repository.findAllVideos()) {
@@ -114,6 +122,7 @@ public class Interactor {
 		return builder.toString();
 	}
 
+	@Override
 	public String listCustomers() {
 		StringBuilder builder = new StringBuilder();
 		for (Customer customer : repository.findAllCustomers()) {

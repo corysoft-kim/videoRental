@@ -4,18 +4,18 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Scanner;
 
-import video.rental.demo.application.Interactor;
+import video.rental.demo.application.InteractorImpl;
 import video.rental.demo.domain.Customer;
 import video.rental.demo.domain.Rating;
 
 public class CmdUI {
     static final Scanner scanner = new Scanner(System.in);
     
-    private Interactor interactor;
+    private InteractorImpl interactorImpl;
     
-    public CmdUI(Interactor interactor) {
+    public CmdUI(InteractorImpl interactorImpl) {
 		super();
-		this.interactor = interactor;
+		this.interactorImpl = interactorImpl;
 	}
 
 	public void start() {
@@ -49,7 +49,7 @@ public class CmdUI {
         System.out.println("Enter customer code: ");
         int customerCode = scanner.nextInt();
 
-        System.out.println(interactor.clearRental(customerCode));
+        System.out.println(interactorImpl.clearRental(customerCode));
     }
 
 	public void returnVideo() {
@@ -59,27 +59,27 @@ public class CmdUI {
         System.out.println("Enter video title to return: ");
         String videoTitle = scanner.next();
 
-        interactor.returnVideo(customerCode, videoTitle);
+        interactorImpl.returnVideo(customerCode, videoTitle);
     }
 
 	public void listVideos() {
         System.out.println("List of videos");
 
-        System.out.print(interactor.listVideos());
+        System.out.print(interactorImpl.listVideos());
         System.out.println("End of list");
     }
 
 	public void listCustomers() {
         System.out.println("List of customers");
 
-        interactor.listCustomers();
+        interactorImpl.listCustomers();
         System.out.println("End of list");
     }
 
 	public void getCustomerReport() {
         System.out.println("Enter customer code: ");
         int code = scanner.nextInt();
-        System.out.println(interactor.getCustomerReport(code).getReport());
+        System.out.println(interactorImpl.getCustomerReport(code).getReport());
     }
 
 	public void rentVideo() {
@@ -89,7 +89,7 @@ public class CmdUI {
         System.out.println("Enter video title to rent: ");
         String videoTitle = scanner.next();
         
-        interactor.rentVideo(code, videoTitle);
+        interactorImpl.rentVideo(code, videoTitle);
     }
 
 	//control coupling
@@ -109,7 +109,7 @@ public class CmdUI {
             } catch (Exception ignored) {
             }
             
-            interactor.registerCustomer(name, code, dateOfBirth);
+            interactorImpl.registerCustomer(name, code, dateOfBirth);
         } else {
             System.out.println("Enter video title to register: ");
             String title = scanner.next();
@@ -130,7 +130,7 @@ public class CmdUI {
             else if (videoRating == 3) rating = Rating.EIGHTEEN;
             else throw new IllegalArgumentException("No such rating " + videoRating);
 
-            interactor.registerVideo(title, videoType, priceCode, registeredDate, rating);
+            interactorImpl.registerVideo(title, videoType, priceCode, registeredDate, rating);
         }
     }
 

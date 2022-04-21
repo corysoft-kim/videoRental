@@ -11,7 +11,7 @@ package video.rental.demo.presentation;
  import javax.swing.ScrollPaneConstants;
  import javax.swing.SpinnerListModel;
 
-import video.rental.demo.application.Interactor;
+import video.rental.demo.presentation.Interactor;
 import video.rental.demo.domain.Rating;
 
 import javax.swing.JSpinner;

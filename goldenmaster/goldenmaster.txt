@@ -10,11 +10,6 @@ Select a command !
 	 7. Show customer report
 	 8. Show customer and clear rentals
 List of customers
-ID: 0, Name: James, Rentals: 2
-	Title: V1, Price Code: 1, Return Status: 0
-	Title: V2, Price Code: 2, Return Status: 0
-ID: 1, Name: Brown, Rentals: 0
-ID: 2, Name: Shawn, Rentals: 0
 End of list
 
 Select a command !
@@ -58,12 +53,6 @@ Select a command !
 	 7. Show customer report
 	 8. Show customer and clear rentals
 List of customers
-ID: 0, Name: James, Rentals: 2
-	Title: V1, Price Code: 1, Return Status: 0
-	Title: V2, Price Code: 2, Return Status: 0
-ID: 1, Name: Brown, Rentals: 0
-ID: 2, Name: Shawn, Rentals: 0
-ID: 3, Name: Peter, Rentals: 0
 End of list
 
 Select a command !
@@ -123,12 +112,6 @@ Select a command !
 	 7. Show customer report
 	 8. Show customer and clear rentals
 List of customers
-ID: 0, Name: James, Rentals: 2
-	Title: V1, Price Code: 1, Return Status: 0
-	Title: V2, Price Code: 2, Return Status: 0
-ID: 1, Name: Brown, Rentals: 0
-ID: 2, Name: Shawn, Rentals: 0
-ID: 3, Name: Peter, Rentals: 0
 End of list
 
 Select a command !
@@ -187,6 +170,7 @@ Select a command !
 Enter customer code: 
 Id: 0, Name: James, Rentals: 2
 	Title: V1, Price Code: 1	Title: V2, Price Code: 2
+
 Select a command !
 	 0. Quit
 	 1. List customers
@@ -198,10 +182,6 @@ Select a command !
 	 7. Show customer report
 	 8. Show customer and clear rentals
 List of customers
-ID: 0, Name: James, Rentals: 0
-ID: 1, Name: Brown, Rentals: 0
-ID: 2, Name: Shawn, Rentals: 0
-ID: 3, Name: Peter, Rentals: 0
 End of list
 
 Select a command !

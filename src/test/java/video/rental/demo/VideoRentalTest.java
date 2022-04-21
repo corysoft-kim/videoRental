@@ -26,11 +26,11 @@ public class VideoRentalTest {
 	}
 	
 	@Test
-	@Disabled
+//	@Disabled
 	@EnabledOnOs({OS.WINDOWS})
 	void check_run_results_against_goldenmaster() {
 		String expected = goldenMaster.getGoldenMaster();
 		String actual = goldenMaster.getRunResult();
-		assertEquals(expected, actual.replaceAll("\r\n", "\n"));
+		assertEquals(expected+"\n", actual.replaceAll("\r\n", "\n"));
 	}
 }
