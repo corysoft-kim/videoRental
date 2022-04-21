@@ -29,8 +29,8 @@ public class CmdUI {
                     case 0: quit = true;            break;
                     case 1: listCustomers();        break;
                     case 2: listVideos();           break;
-                    case 3: register("customer");   break;
-                    case 4: register("video");      break;
+                    case 3: registerCustomer();     break;
+                    case 4: registerVideo();        break;
                     case 5: rentVideo();            break;
                     case 6: returnVideo();          break;
                     case 7: getCustomerReport();    break;
@@ -93,45 +93,44 @@ public class CmdUI {
     }
 
 	//control coupling
-	public void register(String object) {
-        if (object.equals("customer")) {
-            System.out.println("Enter customer name: ");
-            String name = scanner.next();
+	public void registerCustomer() {
+		System.out.println("Enter customer name: ");
+		String name = scanner.next();
 
-            System.out.println("Enter customer code: ");
-            int code = scanner.nextInt();
-            
-            System.out.println("Enter customer birthday (YYYY-MM-DD): ");
-            String dateOfBirth = scanner.next();
-            
-            try {
-                new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
-            } catch (Exception ignored) {
-            }
-            
-            interactorImpl.registerCustomer(name, code, dateOfBirth);
-        } else {
-            System.out.println("Enter video title to register: ");
-            String title = scanner.next();
+		System.out.println("Enter customer code: ");
+		int code = scanner.nextInt();
 
-            System.out.println("Enter video type( 1 for VHD, 2 for CD, 3 for DVD ):");
-            int videoType = scanner.nextInt();
+		System.out.println("Enter customer birthday (YYYY-MM-DD): ");
+		String dateOfBirth = scanner.next();
 
-            System.out.println("Enter price code( 1 for Regular, 2 for New Release 3 for Children ):");
-            int priceCode = scanner.nextInt();
+		try {
+			new SimpleDateFormat("yyyy-MM-dd").parse(dateOfBirth);
+		} catch (Exception ignored) {
+		}
 
-            System.out.println("Enter video rating( 1 for 12, 2 for 15, 3 for 18 ):");
-            int videoRating = scanner.nextInt();
+		interactorImpl.registerCustomer(name, code, dateOfBirth);
+	}
+	
+	public void registerVideo() {
+		System.out.println("Enter video title to register: ");
+		String title = scanner.next();
 
-            LocalDate registeredDate = LocalDate.now();
-            Rating rating;
-            if (videoRating == 1) rating = Rating.TWELVE;
-            else if (videoRating == 2) rating = Rating.FIFTEEN;
-            else if (videoRating == 3) rating = Rating.EIGHTEEN;
-            else throw new IllegalArgumentException("No such rating " + videoRating);
+		System.out.println("Enter video type( 1 for VHD, 2 for CD, 3 for DVD ):");
+		int videoType = scanner.nextInt();
 
-            interactorImpl.registerVideo(title, videoType, priceCode, registeredDate, rating);
-        }
+		System.out.println("Enter price code( 1 for Regular, 2 for New Release 3 for Children ):");
+		int priceCode = scanner.nextInt();
+
+		System.out.println("Enter video rating( 1 for 12, 2 for 15, 3 for 18 ):");
+		int videoRating = scanner.nextInt();
+
+		Rating rating;
+		if (videoRating == 1) rating = Rating.TWELVE;
+		else if (videoRating == 2) rating = Rating.FIFTEEN;
+		else if (videoRating == 3) rating = Rating.EIGHTEEN;
+		else throw new IllegalArgumentException("No such rating " + videoRating);
+
+		interactorImpl.registerVideo(title, videoType, priceCode, LocalDate.now(), rating);
     }
 
 	public int getCommand() {

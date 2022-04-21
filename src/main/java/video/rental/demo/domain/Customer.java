@@ -110,8 +110,8 @@ public class Customer {
 	}
 
 	private int getPoint(Rental each, int daysRented) {
-		int point = 0;
-		point++;
+		int point = 1;
+		
 		if ((each.getVideo().getPriceCode() == Video.NEW_RELEASE))
 			point++;
 

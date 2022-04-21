@@ -54,14 +54,13 @@ public class Video {
 
     public int getLateReturnPointPenalty() {
         //@formatter:off
-        int penalty = 0;
         switch (videoType) {
-            case VHS: penalty = 1;  break;
-            case CD : penalty = 2;  break;
-            case DVD: penalty = 3;  break;
+            case VHS: return 1;
+            case CD : return 2;
+            case DVD: return 3; 
         }
         //@formatter:on
-        return penalty;
+        return 0;
     }
 
     public int getPriceCode() {
