@@ -1,7 +1,11 @@
 package video.rental.demo.domain;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -118,6 +122,44 @@ public class Customer {
 		if (daysRented > each.getDaysRentedLimit())
 			point -= Math.min(point, each.getVideo().getLateReturnPointPenalty());
 		return point;
+	}
+
+	public int getAge() {
+		// calculate customer's age in years and months
+	    Calendar calNow = getNowCalendar();
+	    Calendar calDateOfBirth = getBirthdayCalendar();
+	
+	    return getDiffYear(calNow, calDateOfBirth);
+	}
+
+	private int getDiffYear(Calendar calNow, Calendar calDateOfBirth) {
+		// calculate age different in years and months
+	    int ageYr = (calNow.get(Calendar.YEAR) - calDateOfBirth.get(Calendar.YEAR));
+	    int ageMo = (calNow.get(Calendar.MONTH) - calDateOfBirth.get(Calendar.MONTH));
+	
+	    // decrement age in years if month difference is negative
+	    if (ageMo < 0) {
+	        ageYr--;
+	    }
+		return ageYr;
+	}
+
+	private Calendar getBirthdayCalendar() {
+		// parse customer date of birth
+	    Calendar calDateOfBirth = Calendar.getInstance();
+	    try {
+	        calDateOfBirth.setTime(new SimpleDateFormat("yyyy-MM-dd").parse(this.getDateOfBirth().toString()));
+	    } catch (ParseException e) {
+	        e.printStackTrace();
+	    }
+		return calDateOfBirth;
+	}
+
+	private Calendar getNowCalendar() {
+		// get current date
+	    Calendar calNow = Calendar.getInstance();
+	    calNow.setTime(new java.util.Date());
+		return calNow;
 	}
 
 }
