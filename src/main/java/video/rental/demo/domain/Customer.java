@@ -71,8 +71,8 @@ public class Customer {
 			int daysRented = rentalItem.getDaysRented();
 			int priceCode = rentalItem.getVideo().getPriceCode();
 			
-			double eachCharge = getCharge(daysRented, priceCode);
-			int eachPoint = getPoint(rentalItem, daysRented);
+			double eachCharge = rentalItem.getCharge();
+			int eachPoint = rentalItem.getPoint();
 
 			result += "\tTitle: " + rentalItem.getVideo().getTitle() + "\tDays rented: " + daysRented + "\tCharge: " + eachCharge
 					+ "\tPoint: " + eachPoint + "\n";
@@ -92,37 +92,6 @@ public class Customer {
 		return result;
 	}
 
-	private double getCharge(int daysRented, int priceCode) {
-		double charge = 0;
-
-		switch (priceCode) {
-		case Video.REGULAR:
-			charge += 2;
-			if (daysRented > 2)
-				charge += (daysRented - 2) * 1.5;
-			break;
-		case Video.NEW_RELEASE:
-			charge = daysRented * 3;
-			break;
-		case Video.CHILDREN:
-			charge += 1.5;
-			if (daysRented > 3)
-				charge += (daysRented - 3) * 1.5;
-			break;
-		}
-		return charge;
-	}
-
-	private int getPoint(Rental each, int daysRented) {
-		int point = 1;
-		
-		if ((each.getVideo().getPriceCode() == Video.NEW_RELEASE))
-			point++;
-
-		if (daysRented > each.getDaysRentedLimit())
-			point -= Math.min(point, each.getVideo().getLateReturnPointPenalty());
-		return point;
-	}
 
 	public int getAge() {
 		// calculate customer's age in years and months
